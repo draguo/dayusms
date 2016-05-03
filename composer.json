@@ -1,0 +1,17 @@
+{
+    "name": "draguo/dayusms",
+    "description": "0.1",
+    "authors": [
+        {
+            "name": "'draguo'",
+            "email": "dragon2590@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Draguo\\Dayusms\\": "src/"
+        }
+    },
+    "license": "MIT"
+}
