@@ -1,5 +1,9 @@
 ### [探庐者](http://www.casarover.com/)开源，其中大多为本业务使用
-在完善中
+在完善中  
+### 安装
+```shell
+composer require "draguo/dayusms:dev-master"  
+```
 ## 配置
 
 ### Laravel 应用
