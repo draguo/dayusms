@@ -2,6 +2,8 @@
 
 namespace Draguo\Dayusms;
 use Draguo\Dayusms\SendSms as SendSms;
+use Log;
+
 class Sms extends SendSms
 {
     /**
@@ -22,13 +24,6 @@ class Sms extends SendSms
         $verifyCode = $this->codeTemplet('变更验证',config('dayusms.templateCode.reset'),$phone);
         return $verifyCode;
     }
-    /**
-     * 活动通知
-     */
-    public function activ()
-    {
-
-    }
 
     /**
      * 完全自定义的方法，按照官方文档实现
@@ -39,9 +34,13 @@ class Sms extends SendSms
      * $smsParam  json 例如："{\"code\":\"1234\",\"product\":\"alidayu\"}"
      * $phone string 多个号码之间使用英文逗号分隔，一次最多支持200个 例如：'123456,456789'
      **/
-    public  function send($signName,$templateCode,$smsParam,$phone)
+    public  function send($phone,$smsParam,$templateCode=0,$signName=0)
     {
-        //这个不知道是干什么的
+        // default value
+        $signName = $signName === 0 ? config('dayusms.defaultSignName') : $signName;
+        $smsParam = json_encode($smsParam,JSON_UNESCAPED_UNICODE);
+        $templateCode = $templateCode === 0 ? config('dayusms.defaultTemplateCode') : $templateCode;
+        //这个用来做回调使用，暂时用不上
         $this->setExtend("123456");
         $this->setSmsType('normal');
         $this->setSmsFreeSignName($signName);
@@ -51,8 +50,26 @@ class Sms extends SendSms
         $appkey = config('dayusms.appkey');
         $secretKey = config('dayusms.secretKey');
         $server = new SmsServer($appkey,$secretKey);
-        $message = $server->execute($this);
-        return $message;
+        $result = $server->execute($this);
+
+        if(isset($result->result))
+        {
+            if($result->result->err_code == 0)
+            {
+                $returnValue = ['code'=>0,'msg'=>'ok','result'=>$result];
+            }
+            else
+            {
+                Log::error('alidayu error--'.$result->msg);
+                $returnValue = ['code'=>$result->code,'msg'=>$result->msg,'result'=>$result];
+            }
+        }
+        else
+        {
+            Log::error('alidayu error--'.$result->msg);
+            $returnValue = ['code'=>$result->code,'msg'=>$result->msg,'result'=>$result];
+        }
+        return json_encode($returnValue);
     }
 
     /**
