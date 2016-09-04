@@ -1,28 +1,26 @@
-### 阿里大于发送短信包
+## 阿里大于发送短信包 for laravel
 持续完善中  
+
+## Laravel 应用
 ### 安装
 ```shell
 composer require "draguo/dayusms:dev-master"  
 ```
-## 配置
+### 创建配置文件以及配置  
+  ```shell
+  php artisan vendor:publish
+  ```
+  修改应用根目录下的 `config/dayusms.php` 中对应的项即可
 
-### Laravel 应用
-
-1. 注册 `ServiceProvider`:
+### 注册 `ServiceProvider`:
 
   ``` php  
   Draguo\Dayusms\ServiceProvider::class
   ```
 
-2. 创建配置文件：
-
-  ```shell
-  php artisan vendor:publish
-  ```
-
-3. 请修改应用根目录下的 `config/dayusms.php` 中对应的项即可；
-4. 使用  
+### 使用  
     $sms = app('sms');  
+    $sms->send($phone,$smsParam,$templateCode);
 
 ###函数使用相关  
     用户注册
