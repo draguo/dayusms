@@ -2,8 +2,6 @@
 
 namespace Draguo\Dayusms;
 
-use Draguo\Dayusms\SmsServer as SmsServer;
-
 class SendSms
 {
 
@@ -38,14 +36,6 @@ class SendSms
     private $smsType;
 
     private $apiParas = array();
-
-
-    //生成验证码
-    public function getCode()
-    {
-        return rand(100000, 999999);
-    }
-
 
     public function setExtend($extend)
     {
@@ -121,11 +111,6 @@ class SendSms
     public function getApiParas()
     {
         return $this->apiParas;
-    }
-    //应该进行必要的检查，但是暂时没有
-    public function check()
-    {
-
     }
 
     public function putOtherTextParam($key, $value) {

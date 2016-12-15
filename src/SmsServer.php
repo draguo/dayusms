@@ -128,37 +128,11 @@ class SmsServer
 
     protected function logCommunicationError($apiName, $requestUrl, $errorCode, $responseTxt)
     {
-        // $localIp = isset($_SERVER["SERVER_ADDR"]) ? $_SERVER["SERVER_ADDR"] : "CLI";
-        // $logger = new TopLogger;
-        // $logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_comm_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-        // $logger->conf["separator"] = "^_^";
-        // $logData = array(
-        // date("Y-m-d H:i:s"),
-        // $apiName,
-        // $this->appkey,
-        // $localIp,
-        // PHP_OS,
-        // $this->sdkVersion,
-        // $requestUrl,
-        // $errorCode,
-        // str_replace("\n","",$responseTxt)
-        // );
-        // $logger->log($logData);
+        // should use laravel log instead
     }
 
     public function execute($request, $session = null,$bestUrl = null)
     {
-//        $result =  new ResultSet();
-        if($this->checkRequest) {
-            try {
-                $request->check();
-            } catch (Exception $e) {
-
-                $result->code = $e->getCode();
-                $result->msg = $e->getMessage();
-                return $result;
-            }
-        }
         //组装系统参数
         $sysParams["app_key"] = $this->appkey;
         $sysParams["v"] = $this->apiVersion;
@@ -237,17 +211,6 @@ class SmsServer
             $result->code = 0;
             $result->msg = "HTTP_RESPONSE_NOT_WELL_FORMED";
             return $result;
-        }
-
-        //如果TOP返回了错误码，记录到业务错误日志中
-        if (isset($respObject->code))
-        {
-            // $logger = new TopLogger;
-            // $logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_biz_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-            // $logger->log(array(
-            //     date("Y-m-d H:i:s"),
-            //     $resp
-            // ));
         }
         return $respObject;
     }

@@ -2,10 +2,9 @@
 
 namespace Draguo\Dayusms;
 
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Draguo\Dayusms\Sms as Sms;
+use Illuminate\Support\ServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider
+class DayusmsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -24,9 +23,6 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->publishes([
-            __DIR__.'/config/dayusms.php' => config_path('dayusms.php'),
-        ]);
         $this->app->singleton('sms', function(){
             return new Sms();
         });

@@ -1,16 +1,20 @@
-## 阿里大于发送短信包 for laravel
-持续完善中  
+## 阿里大于发送短信包 for laravel  
 
 ## Laravel 应用
 ### 安装
 ```shell
-composer require "draguo/dayusms:dev-master"  
+composer require "draguo/dayusms"  
 ```
-### 创建配置文件以及配置  
-  ```shell
-  php artisan vendor:publish
-  ```
-  修改应用根目录下的 `config/dayusms.php` 中对应的项即可
+### 配置  
+  修改 `config/services.php`  
+  添加
+  ```php
+      'dayusms' => [
+          'key' => '',
+          'secret' => '',
+          'signName' => '填写通过审核的签名',
+      ],
+   ```
 
 ### 注册 `ServiceProvider`:
 
@@ -23,11 +27,6 @@ composer require "draguo/dayusms:dev-master"
     $sms->send($phone,$smsParam,$templateCode);
 
 ###函数使用相关  
-    用户注册
-    public function regitst($phone)
-    用户重置密码
-    public function reset($phone)
-
   $phone strong 接收的号码  
   $smsParam array 短信模板，详情请参考    [开发文档](https://api.alidayu.com/doc2/apiDetail.htm?spm=a3142.7395905.4.6.bQRfgO&apiId=25450)  
   $templateCode string 例如：'SMS_585014' ,请到配置文件中配置默认的值  
