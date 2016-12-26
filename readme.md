@@ -19,7 +19,7 @@ composer require "draguo/dayusms"
 ### 注册 `ServiceProvider`:
 
   ``` php  
-  Draguo\Dayusms\ServiceProvider::class
+  Draguo\Dayusms\DayusmsServiceProvider::class
   ```
 
 ### 使用  
