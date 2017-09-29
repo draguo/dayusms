@@ -1,4 +1,7 @@
-## 阿里大于发送短信包 for laravel  
+## 不再更新  
+推荐使用 [easy-sms](https://github.com/overtrue/easy-sms) easywechat 作者出品，功能完善
+
+## 阿里大于发送短信包 for laravel  
 
 ## Laravel 应用
 ### 安装
